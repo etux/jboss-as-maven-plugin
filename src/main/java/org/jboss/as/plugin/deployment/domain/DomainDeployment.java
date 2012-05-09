@@ -52,7 +52,7 @@ import org.jboss.as.controller.client.helpers.domain.ServerGroupDeploymentPlanBu
 import org.jboss.as.controller.client.helpers.domain.ServerIdentity;
 import org.jboss.as.controller.client.helpers.domain.ServerStatus;
 import org.jboss.as.controller.client.helpers.domain.ServerUpdateResult;
-import org.jboss.as.plugin.deployment.ConnectionInfo;
+import org.jboss.as.plugin.common.ConnectionInfo;
 import org.jboss.as.plugin.deployment.Deployment;
 import org.jboss.dmr.ModelNode;
 

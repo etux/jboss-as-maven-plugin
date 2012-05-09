@@ -44,7 +44,7 @@ import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentActionR
 import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentManager;
 import org.jboss.as.controller.client.helpers.standalone.ServerDeploymentPlanResult;
 import org.jboss.as.controller.client.helpers.standalone.ServerUpdateActionResult;
-import org.jboss.as.plugin.deployment.ConnectionInfo;
+import org.jboss.as.plugin.common.ConnectionInfo;
 import org.jboss.as.plugin.deployment.Deployment;
 import org.jboss.dmr.ModelNode;
 
@@ -78,6 +78,21 @@ public class StandaloneDeployment implements Deployment {
     /**
      * Creates a new deployment.
      *
+     * @param client  the client that is connected.
+     * @param content the content for the deployment.
+     * @param name    the name of the deployment, if {@code null} the name of the content file is used.
+     * @param type    the deployment type.
+     */
+    public StandaloneDeployment(final ModelControllerClient client, final File content, final String name, final Type type) {
+        this.content = content;
+        this.client = client;
+        this.name = (name == null ? content.getName() : name);
+        this.type = type;
+    }
+
+    /**
+     * Creates a new deployment.
+     *
      * @param connectionInfo the connection information.
      * @param content        the content for the deployment.
      * @param name           the name of the deployment, if {@code null} the name of the content file is used.
@@ -87,6 +102,20 @@ public class StandaloneDeployment implements Deployment {
      */
     public static StandaloneDeployment create(final ConnectionInfo connectionInfo, final File content, final String name, final Type type) {
         return new StandaloneDeployment(connectionInfo, content, name, type);
+    }
+
+    /**
+     * Creates a new deployment.
+     *
+     * @param client  the client that is connected.
+     * @param content the content for the deployment.
+     * @param name    the name of the deployment, if {@code null} the name of the content file is used.
+     * @param type    the deployment type.
+     *
+     * @return the new deployment
+     */
+    public static StandaloneDeployment create(final ModelControllerClient client, final File content, final String name, final Type type) {
+        return new StandaloneDeployment(client, content, name, type);
     }
 
     private DeploymentPlan createPlan(final DeploymentPlanBuilder builder) throws IOException {
